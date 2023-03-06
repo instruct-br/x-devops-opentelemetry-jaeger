@@ -1,5 +1,11 @@
-# Instruct X-DevOps - Jaeger & OpenTelemetry
+# Instruct X-DevOps - OpenTelemetry - Jaeger
 This laboratory demonstrates the key aspects of Jaeger and OpenTelemetry, both monitoring tools for applications. It was created for Instruct's 2023 Summit X-DevOps presentation.
+
+## Presentation
+
+The slides with the presentation can be found at:
+
+https://docs.google.com/presentation/d/1edvxXQUpAjwI070CLqF9Hkv7Srj3DJCPqM6qoUkFgog/edit?usp=sharing
 
 ## How to prepare the lab environment (Linux or WSL environment)
 
