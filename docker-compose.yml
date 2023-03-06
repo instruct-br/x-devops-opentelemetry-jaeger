@@ -1,0 +1,59 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:12.1
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - default
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.42
+    ports:
+      - "16686:16686"
+      - "14268:14268"
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+      - LOG_LEVEL=debug
+    networks:
+      - default
+
+  blackjack-api:
+    container_name: blackjack-api
+    build:
+      context: ./blackjack_api
+    ports:
+      - "8001:8001"
+    depends_on:
+      - db
+      - jaeger
+    env_file: ./blackjack_api/.env
+    volumes:
+      - ./blackjack_api:/code
+    stdin_open: true
+    tty: true
+    networks:
+      - default
+
+  calculator-api:
+    container_name: calculator-api
+    build:
+      context: ./calculator_api
+    ports:
+      - "8002:8002"
+    depends_on:
+      - jaeger
+    env_file: ./calculator_api/.env
+    volumes:
+      - ./calculator_api:/code
+    stdin_open: true
+    tty: true
+    networks:
+      - default
+
+networks:
+  default:
+    name: demo_default
